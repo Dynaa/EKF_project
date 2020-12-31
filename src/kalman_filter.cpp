@@ -60,13 +60,14 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   // Compute h function in order to determinate z_pred value 
   VectorXd z_pred(3) ;
   float rho = std::sqrt(x_(0)*x_(0)+x_(1)*x_(1)) ;
-  float phi = std::atan(x_(1)/x_(0)) ;
+  float phi = std::atan2(x_(1),x_(0));
   float phi_dot = 0. ;
   
-  if(phi>0.0001)
+  if(rho>0.0001)
   {
     phi_dot = (x_(0)*x_(2)+x_(1)*x_(3))/(rho);
   }
+
 
   z_pred(0) = rho ;
   z_pred(1) = phi ;
